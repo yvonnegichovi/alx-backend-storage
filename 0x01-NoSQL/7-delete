@@ -1,0 +1,3 @@
+// Deletes documents after filtering
+
+db.school.deleteMany({ name: "Holberton school"})
