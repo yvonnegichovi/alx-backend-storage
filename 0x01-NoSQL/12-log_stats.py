@@ -20,10 +20,11 @@ def log_stats():
     print("Methods:")
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     for method in methods:
-        count = collection.count_documents({"method": method})
+        count = len(list(collection.find({"method": method})))
         print("\tmethod {}: {}".format(method, count))
 
-    check = collection.count_documents({"methods": "GET", "path": "/status"})
+    check = len(list(
+        collection.find({"methods": "GET", "path": "/status"})))
     print("{} status check".format(check))
 
 
