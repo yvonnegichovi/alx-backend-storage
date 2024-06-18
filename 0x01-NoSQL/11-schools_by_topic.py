@@ -15,4 +15,11 @@ def schools_by_topic(mongo_collection, topic):
     Return:
         - list of school having a specific topic
     """
-    return list(mongo_collection.find({topic: "topic"}))
+    topic = {
+        'topics': {
+            '$elemMatch': {
+                '$eq': topic,
+            },
+        },
+    }
+    return list(mongo_collection.find(topic))
