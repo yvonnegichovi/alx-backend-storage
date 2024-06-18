@@ -3,6 +3,8 @@
 This script that handles pymongo commands
 """
 
+import pymongo
+
 
 def insert_school(mongo_collection, **kwargs):
     """
