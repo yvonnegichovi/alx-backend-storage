@@ -24,12 +24,12 @@ Back-end | Redis
 ## Installation
 - To install Redis on Ubuntu 18.04:
 
-'''sh
-Copy code
+'sh
+
 $ sudo apt-get -y install redis-server
 $ pip3 install redis
 $ sed -i "s/bind .*/bind 127.0.0.1/g" /etc/redis/redis.conf
-'''
+'
 Using Redis in a Container
 Redis server is stopped by default. Start it with:
 
