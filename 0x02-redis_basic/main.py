@@ -34,3 +34,10 @@ print(cache.get_str(key))  # should print 'hello'
 
 key = cache.store(123)
 print(cache.get_int(key))  # should print 123
+
+cache.store(b"first")
+print(cache.get(cache.store.__qualname__))  # Should print b'1'
+
+cache.store(b"second")
+cache.store(b"third")
+print(cache.get(cache.store.__qualname__))  # Should print b'3'
