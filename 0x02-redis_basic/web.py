@@ -5,6 +5,7 @@ This module implements an expiring web cache and tracker
 
 redis_client = redis.Redis()
 
+
 def count_calls(method: Callable) -> Callable:
     """Decorator to count how many times a URL is accessed."""
     @functools.wraps(method)
@@ -12,6 +13,7 @@ def count_calls(method: Callable) -> Callable:
         redis_client.incr(f"count:{url}")
         return method(url, *args, **kwargs)
     return wrapper
+
 
 def cache_page(method: Callable) -> Callable:
     """Decorator to cache the HTML content of a URL."""
@@ -25,6 +27,7 @@ def cache_page(method: Callable) -> Callable:
         redis_client.setex(cache_key, 10, html_content)
         return html_content
     return wrapper
+
 
 @count_calls
 @cache_page
