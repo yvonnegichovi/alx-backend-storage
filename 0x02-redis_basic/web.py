@@ -3,6 +3,12 @@
 This module implements an expiring web cache and tracker
 """
 
+from functools import wraps
+import redis
+import requests
+from typing import Callable
+
+
 redis_client = redis.Redis()
 
 
