@@ -86,7 +86,11 @@ class Cache:
         self._redis.set(keys, data)
         return keys
 
-    def get(self, key: str, fn: Optional[Callable] = None) -> Union[str, bytes, int, float, None]:
+    def get(
+            self,
+            key: str,
+            fn: Optional[Callable] = None
+            ) -> Union[str, bytes, int, float, None]:
         """
         This method converts the data back to the desired format
         """
@@ -107,7 +111,8 @@ class Cache:
 
     def get_int(self, key: str) -> Optional[int]:
         """
-        Automatically parametrize Cache.get                             with the correct conversion function
+        Automatically parametrize Cache.get
+        with the correct conversion function
         """
         value = self.get(key, int)
         return value
