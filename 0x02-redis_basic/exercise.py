@@ -23,12 +23,13 @@ def count_calls(method: Callable) -> Callable:
         return method(self, *args, **kwargs)
     return wrapper
 
+
 def call_history(method: Callable) -> Callable:
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
         input_key = method.__qualname__ + ':inputs'
         output_key = method.__qualname__ + ':outputs'
-        
+
         self._redis.rpush(input_key, str(args))
 
         result = method(self, *args, **kwargs)
@@ -47,7 +48,7 @@ def replay(method: Callable) -> None:
     inputs = redis_instance.lrange(input_key, 0, -1)
     outputs = redis_instance.lrange(output_key, 0, -1)
 
-    print ("{} was called {} times:".format(method_qualname, len(inputs)))
+    print("{} was called {} times:".format(method_qualname, len(inputs)))
     for inp, outp in zip(inputs, outputs):
         print("{}(*{}) -> {}".format(
             method_qualname, inp.decode('utf-8'), outp.decode('utf-8')))
