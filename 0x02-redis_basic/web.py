@@ -12,15 +12,6 @@ from typing import Callable
 redis_client = redis.Redis()
 
 
-def count_calls(method: Callable) -> Callable:
-    """Decorator to count how many times a URL is accessed."""
-    @functools.wraps(method)
-    def wrapper(url: str, *args, **kwargs):
-        redis_client.incr(f"count:{url}")
-        return method(url, *args, **kwargs)
-    return wrapper
-
-
 def cache_page(method: Callable) -> Callable:
     """Decorator to cache the HTML content of a URL."""
     @functools.wraps(method)
