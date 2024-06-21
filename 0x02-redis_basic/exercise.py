@@ -37,6 +37,20 @@ def call_history(method: Callable) -> Callable:
     return wrapper
 
 
+def replay(method: Callable) -> None:
+    redis_instance = method.__self__._redis
+    method_qualname = method.__qualname__
+
+    input_key = "{}:inputs".format(method_qualname)
+    output_key = "{}:outputs".format(method_qualname)
+
+    inputs = redis_instance.lrange(input_key, 0, -1)
+    outputs = redis_instance.lrange(output_key, 0, -1)
+
+    print("{}(*{}) -> {}".format(
+        method_qualname, inp.decode('utf-8'), outp.decode('utf-8')))
+
+
 class Cache:
     """
     creates a class Cache where that includes initialization of instances
