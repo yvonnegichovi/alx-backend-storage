@@ -47,8 +47,10 @@ def replay(method: Callable) -> None:
     inputs = redis_instance.lrange(input_key, 0, -1)
     outputs = redis_instance.lrange(output_key, 0, -1)
 
-    print("{}(*{}) -> {}".format(
-        method_qualname, inp.decode('utf-8'), outp.decode('utf-8')))
+    print ("{} was called {} times:".format(method_qualname, len(inputs)))
+    for inp, outp in zip(inputs, outputs):
+        print("{}(*{}) -> {}".format(
+            method_qualname, inp.decode('utf-8'), outp.decode('utf-8')))
 
 
 class Cache:
