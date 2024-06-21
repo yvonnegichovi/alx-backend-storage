@@ -25,6 +25,9 @@ def count_calls(method: Callable) -> Callable:
 
 
 def call_history(method: Callable) -> Callable:
+    """
+    Calls history
+    """
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
         input_key = method.__qualname__ + ':inputs'
@@ -39,6 +42,9 @@ def call_history(method: Callable) -> Callable:
 
 
 def replay(method: Callable) -> None:
+    """
+    Replays
+    """
     redis_instance = method.__self__._redis
     method_qualname = method.__qualname__
 
